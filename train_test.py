@@ -1,9 +1,3 @@
-"""
-train_test.py
-
-A file for training model for genre classification.
-Please check the device in hparams.py before you run this code.
-"""
 import torch
 import data_manager
 import models
