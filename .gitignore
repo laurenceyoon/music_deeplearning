@@ -3,3 +3,4 @@ gtzan/
 dataset/
 input/
 venv/
+__pycache__/

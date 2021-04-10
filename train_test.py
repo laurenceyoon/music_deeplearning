@@ -5,7 +5,7 @@ from hyper_parameters import hparams
 
 
 # Wrapper class to run PyTorch model
-class Runner(object):
+class Runner:
     def __init__(self, hparams):
         # __init__에 model 을 올림
         self.model = models.Baseline(hparams)
@@ -19,7 +19,7 @@ class Runner(object):
         self.device = torch.device("cpu")
 
         # GPU
-        if hparams.device > 0:
+        if hparams.device:
             torch.cuda.set_device(hparams.device - 1)
             # model.cuda
             self.model.cuda(hparams.device - 1)
@@ -39,7 +39,7 @@ class Runner(object):
 
     # Running model for train, test and validation. mode: 'train' for training, 'eval' for validation and test
     def run(self, dataloader, mode='train'):
-        self.model.train() if mode is 'train' else self.model.eval()
+        self.model.train() if mode == 'train' else self.model.eval()
 
         epoch_loss = 0
         epoch_acc = 0
@@ -51,7 +51,7 @@ class Runner(object):
             loss = self.criterion(prediction, y)
             acc = self.accuracy(prediction, y)
 
-            if mode is 'train':
+            if mode == 'train':
                 loss.backward()
                 self.optimizer.step()
                 self.optimizer.zero_grad()
